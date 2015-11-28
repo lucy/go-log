@@ -35,6 +35,7 @@ var DefaultLevelStrings = LevelStrings{
 // Flags represents options for the logger
 type Flags int
 
+// Logger options
 const (
 	// FlagLongPath prepends the full source file path
 	FlagLongPath = 1 << iota
