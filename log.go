@@ -8,10 +8,10 @@ import (
 	"time"
 )
 
-// Level is a log level
+// Level is a log level.
 type Level int
 
-// Available log levels
+// Available log levels.
 const (
 	LevelDebug = iota
 	LevelInfo
@@ -20,10 +20,10 @@ const (
 	LevelFatal
 )
 
-// LevelStrings are the strings prefixed to each log message based on level
+// LevelStrings are the strings prefixed to each log message based on level.
 type LevelStrings [5]string
 
-// DefaultLevelStrings are the default level strings
+// DefaultLevelStrings are the default level strings.
 var DefaultLevelStrings = LevelStrings{
 	"DEBUG",
 	"INFO ",
@@ -32,18 +32,18 @@ var DefaultLevelStrings = LevelStrings{
 	"FATAL",
 }
 
-// Flags represents options for the logger
+// Flags represents options for the logger.
 type Flags int
 
-// Logger options
+// Logger options.
 const (
-	// FlagLongPath prepends the full source file path
+	// FlagLongPath prepends the full source file path.
 	FlagLongPath = 1 << iota
-	// FlagShortPath prepends a shortened source file path
+	// FlagShortPath prepends a shortened source file path.
 	FlagShortPath
 )
 
-// A Logger is a thread safe logger with level indicators
+// A Logger is a thread safe logger with level indicators.
 type Logger struct {
 	sync.Mutex
 	out  io.Writer
@@ -135,7 +135,7 @@ func (log *Logger) header(level Level, now time.Time, file string, line int) {
 	}
 }
 
-// Output is the printing function
+// Output is the generic printing function.
 func (log *Logger) Output(l Level, s string) error {
 	now := time.Now()
 	log.Lock()
@@ -163,62 +163,62 @@ func (log *Logger) Output(l Level, s string) error {
 	return err
 }
 
-// Log outputs a log message at the specified level
+// Log outputs a log message at the specified level.
 func (log *Logger) Log(l Level, v ...interface{}) {
 	log.Output(l, fmt.Sprint(v...))
 }
 
-// Logf outputs a formatted log message at the specified level
+// Logf outputs a formatted log message at the specified level.
 func (log *Logger) Logf(l Level, format string, v ...interface{}) {
 	log.Output(l, fmt.Sprintf(format, v...))
 }
 
-// Debug is Log at the debug log level
+// Debug is Log at the debug log level.
 func (log *Logger) Debug(l Level, v ...interface{}) {
 	log.Output(LevelDebug, fmt.Sprint(v...))
 }
 
-// Debugf is Log at the debug log level
+// Debugf is Log at the debug log level.
 func (log *Logger) Debugf(l Level, format string, v ...interface{}) {
 	log.Output(LevelDebug, fmt.Sprintf(format, v...))
 }
 
-// Info is Log at the info log level
+// Info is Log at the info log level.
 func (log *Logger) Info(l Level, v ...interface{}) {
 	log.Output(LevelInfo, fmt.Sprint(v...))
 }
 
-// Infof is Log at the info log level
+// Infof is Log at the info log level.
 func (log *Logger) Infof(l Level, format string, v ...interface{}) {
 	log.Output(LevelInfo, fmt.Sprintf(format, v...))
 }
 
-// Warn is Log at the warn log level
+// Warn is Log at the warn log level.
 func (log *Logger) Warn(l Level, v ...interface{}) {
 	log.Output(LevelWarn, fmt.Sprint(v...))
 }
 
-// Warnf is Log at the warn log level
+// Warnf is Log at the warn log level.
 func (log *Logger) Warnf(l Level, format string, v ...interface{}) {
 	log.Output(LevelWarn, fmt.Sprintf(format, v...))
 }
 
-// Error is Log at the error log level
+// Error is Log at the error log level.
 func (log *Logger) Error(l Level, v ...interface{}) {
 	log.Output(LevelError, fmt.Sprint(v...))
 }
 
-// Errorf is Log at the error log level
+// Errorf is Log at the error log level.
 func (log *Logger) Errorf(l Level, format string, v ...interface{}) {
 	log.Output(LevelError, fmt.Sprintf(format, v...))
 }
 
-// Fatal is Log at the fatal log level
+// Fatal is Log at the fatal log level.
 func (log *Logger) Fatal(l Level, v ...interface{}) {
 	log.Output(LevelFatal, fmt.Sprint(v...))
 }
 
-// Fatalf is Log at the fatal log level
+// Fatalf is Log at the fatal log level.
 func (log *Logger) Fatalf(l Level, format string, v ...interface{}) {
 	log.Output(LevelFatal, fmt.Sprintf(format, v...))
 }
