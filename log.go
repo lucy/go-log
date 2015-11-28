@@ -174,51 +174,51 @@ func (log *Logger) Logf(l Level, format string, v ...interface{}) {
 }
 
 // Debug is Log at the debug log level.
-func (log *Logger) Debug(l Level, v ...interface{}) {
+func (log *Logger) Debug(v ...interface{}) {
 	log.Output(LevelDebug, fmt.Sprint(v...))
 }
 
 // Debugf is Log at the debug log level.
-func (log *Logger) Debugf(l Level, format string, v ...interface{}) {
+func (log *Logger) Debugf(format string, v ...interface{}) {
 	log.Output(LevelDebug, fmt.Sprintf(format, v...))
 }
 
 // Info is Log at the info log level.
-func (log *Logger) Info(l Level, v ...interface{}) {
+func (log *Logger) Info(v ...interface{}) {
 	log.Output(LevelInfo, fmt.Sprint(v...))
 }
 
 // Infof is Log at the info log level.
-func (log *Logger) Infof(l Level, format string, v ...interface{}) {
+func (log *Logger) Infof(format string, v ...interface{}) {
 	log.Output(LevelInfo, fmt.Sprintf(format, v...))
 }
 
 // Warn is Log at the warn log level.
-func (log *Logger) Warn(l Level, v ...interface{}) {
+func (log *Logger) Warn(v ...interface{}) {
 	log.Output(LevelWarn, fmt.Sprint(v...))
 }
 
 // Warnf is Log at the warn log level.
-func (log *Logger) Warnf(l Level, format string, v ...interface{}) {
+func (log *Logger) Warnf(format string, v ...interface{}) {
 	log.Output(LevelWarn, fmt.Sprintf(format, v...))
 }
 
 // Error is Log at the error log level.
-func (log *Logger) Error(l Level, v ...interface{}) {
+func (log *Logger) Error(v ...interface{}) {
 	log.Output(LevelError, fmt.Sprint(v...))
 }
 
 // Errorf is Log at the error log level.
-func (log *Logger) Errorf(l Level, format string, v ...interface{}) {
+func (log *Logger) Errorf(format string, v ...interface{}) {
 	log.Output(LevelError, fmt.Sprintf(format, v...))
 }
 
 // Fatal is Log at the fatal log level.
-func (log *Logger) Fatal(l Level, v ...interface{}) {
+func (log *Logger) Fatal(v ...interface{}) {
 	log.Output(LevelFatal, fmt.Sprint(v...))
 }
 
 // Fatalf is Log at the fatal log level.
-func (log *Logger) Fatalf(l Level, format string, v ...interface{}) {
+func (log *Logger) Fatalf(format string, v ...interface{}) {
 	log.Output(LevelFatal, fmt.Sprintf(format, v...))
 }
