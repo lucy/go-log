@@ -17,7 +17,6 @@ const (
 	LevelInfo
 	LevelWarn
 	LevelError
-	LevelFatal
 )
 
 // LevelStrings are the strings prefixed to each log message based on level.
@@ -29,7 +28,6 @@ var DefaultLevelStrings = LevelStrings{
 	"INFO ",
 	"WARN ",
 	"ERROR",
-	"FATAL",
 }
 
 // Flags represents options for the logger.
@@ -79,7 +77,7 @@ func itoa(buf *[]byte, i int, wid int) {
 func (log *Logger) date(now time.Time) {
 	hour, minute, second := now.Clock()
 	year, month, day := now.Date()
-	nsec := now.Nanosecond()
+	//nsec := now.Nanosecond()
 	itoa(&log.buf, year, 4)
 	log.buf = append(log.buf, '-')
 	itoa(&log.buf, int(month), 2)
@@ -91,8 +89,8 @@ func (log *Logger) date(now time.Time) {
 	itoa(&log.buf, minute, 2)
 	log.buf = append(log.buf, ':')
 	itoa(&log.buf, second, 2)
-	log.buf = append(log.buf, '.')
-	itoa(&log.buf, nsec, 9)
+	//log.buf = append(log.buf, '.')
+	//itoa(&log.buf, nsec, 9)
 	_, off := now.Zone()
 	if off == 0 {
 		log.buf = append(log.buf, 'Z')
@@ -117,6 +115,7 @@ func (log *Logger) header(level Level, now time.Time, file string, line int) {
 	log.buf = append(log.buf, ' ')
 	//2006-01-02T15:04:05.999999999Z07:00
 	log.date(now)
+	log.buf = append(log.buf, ' ')
 	if log.flag&(FlagShortPath|FlagLongPath) != 0 {
 		if log.flag&(FlagShortPath) != 0 {
 			short := file
@@ -211,14 +210,4 @@ func (log *Logger) Error(v ...interface{}) {
 // Errorf is Log at the error log level.
 func (log *Logger) Errorf(format string, v ...interface{}) {
 	log.Output(LevelError, fmt.Sprintf(format, v...))
-}
-
-// Fatal is Log at the fatal log level.
-func (log *Logger) Fatal(v ...interface{}) {
-	log.Output(LevelFatal, fmt.Sprint(v...))
-}
-
-// Fatalf is Log at the fatal log level.
-func (log *Logger) Fatalf(format string, v ...interface{}) {
-	log.Output(LevelFatal, fmt.Sprintf(format, v...))
 }
